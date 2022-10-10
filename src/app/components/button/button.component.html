@@ -1,0 +1,11 @@
+<div [ngClass]="containerClasses">
+  <button
+    [type]="type"
+    [ngClass]="getClasses()"
+    class="flex justify-center items-center rounded-[60px] transition-colors duration-300 w-full text-base h-[40px]"
+    (click)="click()"
+    [id]="id"
+    >
+    {{ label }}
+  </button>
+</div>

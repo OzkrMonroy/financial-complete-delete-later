@@ -1,0 +1,32 @@
+<h1 class="text-blue-dark font-bold text-2xl text-center mt-[45px] mb-[33px]">
+  Préstamo de remesa
+</h1>
+<div class="w-[85%] mx-auto">
+  <app-prequalified-customer-details
+    [name]="customerName"
+    [amount]="customerDetails.amount"
+    [fee]="customerDetails.quota"
+    [period]="customerDetails.period"></app-prequalified-customer-details>
+  <div class="flex flex-col md:flex-row justify-between mb-0 md:mb-[41px]">
+    <app-button
+      buttonColor="secondary"
+      label="Modificar"
+      class="w-full md:w-[228px] mb-[22px] md:mb-0"
+      (clickEvent)="goTo('quoter')"
+      id="prequalified-customer.modify.button"></app-button>
+    <app-button
+      buttonColor="primary"
+      label="Solicitar"
+      class="w-full md:w-[228px] mb-[22px] md:mb-0"
+      (clickEvent)="goTo('quoter')"
+      id="prequalified-customer.apply.button"></app-button>
+  </div>
+  <div class="flex justify-center">
+    <app-button
+      buttonColor="link"
+      label="Cancelar"
+      class="w-full md:w-[228px] mb-[22px] md:mb-0"
+      (clickEvent)="goTo('')"
+      id="prequalified-customer.cancel.button"></app-button>
+  </div>
+</div>
