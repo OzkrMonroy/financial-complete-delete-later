@@ -1,8 +1,7 @@
 <div
   class="relative mt-5 mb-4 flex flex-col"
   [ngClass]="containerClasses"
-  [formGroup]="form"
-  >
+  [formGroup]="form">
   <div class="relative">
     <input
       *ngIf="rule !== 'amount' && rule !== 'dpi'"
@@ -14,22 +13,18 @@
       [formControlName]="name"
       [maxlength]="length"
       (keypress)="validationValue($event)"
-      #inputRef
-      
-    />
-    <input
-      *ngIf="rule === 'amount'"
-      [ngClass]="getInputColor()"
-      [type]="type"
+      #inputRef />
+    <app-amount-input
+      [form]="form"
+      [label]="label"
       [id]="id"
       [name]="name"
-      [autocomplete]="autoComplete"
-      [formControlName]="name"
-      [maxlength]="length"
-      (keypress)="validationValue($event)"
-      appFormatNumber
-      #inputRef
-    />
+      [length]="length"
+      [required]="required"
+      [color]="getInputColor()"
+      [containerClasses]="containerClasses"
+      [autoComplete]="autoComplete"
+      *ngIf="rule === 'amount'"></app-amount-input>
     <input
       *ngIf="rule === 'dpi'"
       [ngClass]="getInputColor()"
@@ -40,14 +35,17 @@
       [formControlName]="name"
       (paste)="onPaste($event)"
       mask="0000 00000 0000"
-      #inputRef
-    />
-    <label class="placeholder-text" [for]="name" id="placeholder-fname">
+      inputmode="numeric"
+      #inputRef />
+    <label
+      class="placeholder-text"
+      [for]="name"
+      id="placeholder-fname"
+      *ngIf="rule !== 'amount'">
       <div
         class="text flex gap-1 items-center"
         [class.float]="mustFloat()"
-        [ngClass]="getInputColor()"
-      >
+        [ngClass]="getInputColor()">
         <span>{{ label }}</span
         ><span class="pt-1" *ngIf="required">*</span>
       </div>
@@ -57,6 +55,5 @@
     [parentForm]="form"
     [name]="name"
     [rule]="rule"
-    [isInvalidAmount]="isInvalidAmount"
-  ></app-input-alerts>
+    [isInvalidAmount]="isInvalidAmount"></app-input-alerts>
 </div>

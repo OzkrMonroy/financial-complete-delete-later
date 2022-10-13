@@ -1,0 +1,30 @@
+<div>
+  <div class="mt-[80px] mb-[20px]">
+    <h1 class="leading-10 text-blue-dark text-2xl text-center font-bold">
+      Consulta de DPI
+    </h1>
+  </div>
+  <div class="w-[85%] mx-auto mb-[45px]">
+    <h2
+      class="h-[52px] font-normal mb-[55px] text-base text-blue-dark text-center">
+      Ingresa el DPI del cliente que desea un préstamo de remesa
+    </h2>
+  </div>
+  <form [formGroup]="form" class="w-[85%] mx-auto">
+    <app-input
+      containerClasses="mb-[130px]"
+      [form]="form"
+      [required]="true"
+      [rule]="'dpi'"
+      [label]="'DPI'"
+      [id]="'dpi-page.dpi.input'"
+      [name]="'dpi'"
+      [length]="'15'"></app-input>
+    <app-button
+      [label]="'Consultar'"
+      (clickEvent)="validQueryDPI()"
+      [buttonColor]="ValidButton()"
+      type="submit"
+      class="w-full"></app-button>
+  </form>
+</div>

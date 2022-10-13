@@ -1,0 +1,30 @@
+<div class="rounded-[20px] bg-gray-light pt-4 overflow-hidden mb-[20px]">
+  <p
+    *ngIf="title !== null"
+    class="text-base text-blue-dark text-center mb-[20px] font-normal">
+    {{ title }}
+  </p>
+
+  <app-input
+    containerClasses="mb-[130px]  px-[28px]"
+    [form]="formQuoter"
+    [required]="true"
+    [rule]="'amount'"
+    [label]="'Monto'"
+    [id]="'quoter-page.amount.input'"
+    [name]="'Amount'"
+    [length]="'6'"></app-input>
+  <app-select-spinner
+    containerClasses=" pb-[13px] px-[28px]"
+    [id]="'quoter-page.amount.input'"
+    name="Term"
+    (changeEvent)="eventQuoter($event)"
+    [domain]="domain"></app-select-spinner>
+
+  <div class="bg-blue-dark py-4 text-white text-center">
+    <p class="text-base">Cuota mensual</p>
+    <p class="text-2xl font-bold" [id]="'quoter-page.fee.label'">
+      {{ formatNumber(fee) }}
+    </p>
+  </div>
+</div>

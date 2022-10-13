@@ -8,6 +8,9 @@ import { HeaderComponent } from './header/header.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { SelectSpinnerComponent } from './select-spinner/select-spinner.component';
+import { CreditCalculatorComponent } from './credit-calculator/credit-calculator.component';
+import { AmountInputComponent } from './amount-input/amount-input.component';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -15,9 +18,12 @@ const components = [
   ButtonComponent,
   PrequalifiedCustomerDetailsComponent,
   InputComponent,
+  AmountInputComponent,
   InputAlertsComponent,
   LayoutComponent,
-  HeaderComponent
+  HeaderComponent,
+  SelectSpinnerComponent,
+  CreditCalculatorComponent
 ]
 
 @NgModule({

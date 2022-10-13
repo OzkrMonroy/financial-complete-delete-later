@@ -1,0 +1,33 @@
+<div
+  class="amount-container"
+  (click)="setFocus()"
+  [formGroup]="form"
+  [ngClass]="color"
+  #container>
+  <span>Q</span>
+  <input
+    type="text"
+    #myInput
+    [size]="getSize(myInput)"
+    placeholder="0"
+    mask="separator.0"
+    thousandSeparator=","
+    inputmode="numeric"
+    (keyup)="keepValueZero($event)"
+    [id]="id"
+    [name]="name"
+    [autocomplete]="autoComplete"
+    [formControlName]="name"
+    [maxlength]="length" />
+  <label class="placeholder-text" [for]="name" id="placeholder-fname">
+    <div
+      class="text flex gap-1 items-center"
+      [class.float]="true"
+      [ngClass]="color">
+      <span>{{ label }}</span
+      ><span class="pt-1" *ngIf="required">*</span>
+    </div>
+  </label>
+  <span>.00</span>
+</div>
+

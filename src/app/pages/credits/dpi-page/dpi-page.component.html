@@ -1,5 +1,5 @@
 <div>
-  <div class="pt-[45px] pb-[20px]">
+  <div class="mt-[80px] mb-[20px]">
     <h1 class="leading-10 text-blue-dark text-2xl text-center font-bold">
       Consulta de DPI
     </h1>
@@ -22,8 +22,13 @@
       [length]="'15'"></app-input>
     <app-button
       [label]="'Consultar'"
-      [routerLink]="['/credits/prequalified-customer']"
+      (clickEvent)="validQueryDPI()"
+      [buttonColor]="ValidButton()"
       type="submit"
-      class="w-full"></app-button>
+      class="w-full mb-5"></app-button>
+      <app-credit-calculator [formQuoter]="form" ></app-credit-calculator>
   </form>
 </div>
+<p>{{ form.value | json }}</p>
+<p>{{ form.valid | json }}</p>
+<p>{{ form.get('amount')?.errors | json }}</p>

@@ -1,0 +1,44 @@
+input {
+  @apply w-full h-10 rounded-[7px] border-[1px] border-solid text-gray-semi-light;
+
+  &.primary {
+    @apply border-blue-dark;
+  }
+  &.error {
+    @apply border-red-500;
+  }
+  &.success {
+    @apply border-green-500;
+  }
+  &:focus {
+    @apply outline-none;
+  }
+}
+input,
+.placeholder-text {
+  font-size: 1rem;
+  padding: 0 0.85rem;
+}
+input:focus + .placeholder-text .text,
+.placeholder-text .text.float {
+  @apply bg-white text-sm;
+  transform: translate(0, -100%);
+}
+.placeholder-text {
+  @apply absolute top-0 bottom-0 left-0 right-0 border-[2px] border-transparent bg-transparent pointer-events-none flex items-center;
+}
+.text {
+  @apply text-base px-2 bg-transparent;
+  transition: transform 0.15s ease-out, font-size 0.15s ease-out,
+    background-color 0.2s ease-out, color 0.15s ease-out;
+
+  &.primary {
+    @apply text-blue-dark;
+  }
+  &.error {
+    @apply text-red-500;
+  }
+  &.success {
+    @apply text-green-500;
+  }
+}
