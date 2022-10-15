@@ -1,47 +1,48 @@
 .amount-container {
-  @apply flex justify-center items-center py-2 border text-2xl font-bold text-blue-dark w-full h-10 rounded-[7px] relative;
-
-  &.primary {
-    @apply border-blue-dark;
+    @apply flex justify-center items-center py-2 border text-2xl font-bold text-blue-dark w-full h-10 rounded-[7px] relative;
+  
+    &.primary {
+      @apply border-blue-dark;
+    }
+    &.error {
+      @apply border-red-500;
+    }
+    &.success {
+      @apply border-green-500;
+    }
+    & .input {
+      @apply outline-none;
+    }
   }
-  &.error {
-    @apply border-red-500;
+  input {
+    @apply text-center outline-none bg-transparent font-bold;
   }
-  &.success {
-    @apply border-green-500;
+  input::placeholder {
+    @apply text-blue-dark opacity-100;
   }
-  & .input {
-    @apply outline-none;
-  }
-}
-input {
-  @apply text-center outline-none bg-transparent font-bold;
-}
-input::placeholder {
-  @apply text-blue-dark opacity-100;
-}
-
-input:-ms-input-placeholder {
-  @apply text-blue-dark;
-}
-
-input::-ms-input-placeholder {
-  @apply text-blue-dark;
-}
-
-.placeholder-text {
-  @apply absolute -top-[48%] left-[5px] bg-transparent pointer-events-none flex items-center font-normal bg-gray-light text-sm;
-}
-.text {
-  @apply px-2 bg-transparent;
-
-  &.primary {
+  
+  input:-ms-input-placeholder {
     @apply text-blue-dark;
   }
-  &.error {
-    @apply text-red-500;
+  
+  input::-ms-input-placeholder {
+    @apply text-blue-dark;
   }
-  &.success {
-    @apply text-green-500;
+  
+  .placeholder-text {
+    @apply absolute -top-[48%] left-[5px] bg-transparent pointer-events-none flex items-center font-normal bg-gray-light text-sm;
   }
-}
+  .text {
+    @apply px-2 bg-transparent;
+  
+    &.primary {
+      @apply text-blue-dark;
+    }
+    &.error {
+      @apply text-red-500;
+    }
+    &.success {
+      @apply text-green-500;
+    }
+  }
+  

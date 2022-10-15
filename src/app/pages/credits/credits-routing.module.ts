@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DpiPageComponent } from './dpi-page/dpi-page.component';
 import { PrequalifiedCustomerPageComponent } from './prequalified-customer-page/prequalified-customer-page.component';
 import { QuoterPageComponent } from './quoter-page/quoter-page.component';
+import { ConfirmationScreenComponent } from '../confirmation-screen/confirmation-screen.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,6 +14,10 @@ const routes: Routes = [{
 }, {
   path: 'quoter',
   component: QuoterPageComponent
+},
+{
+  path: 'confirmation',
+  component: ConfirmationScreenComponent
 }];
 
 @NgModule({

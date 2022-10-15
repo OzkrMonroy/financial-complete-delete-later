@@ -8,6 +8,14 @@
     border-radius: 35px;
 }
 
+.button-spinner:active {
+    scale: 0.9;
+    box-shadow: 2px 2px #D0D0D0;
+  
+
+}
+
+
 .icon-alert-error {
     height:76px;
     width:76px;

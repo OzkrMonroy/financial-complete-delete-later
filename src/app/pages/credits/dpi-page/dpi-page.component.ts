@@ -31,6 +31,7 @@ export class DpiPageComponent {
     public modalController: ModalController
    ){
   }
+
   ValidButton():ButtonColor{
     return (this.form.valid)?'primary':'disabled';
   }
@@ -49,7 +50,7 @@ export class DpiPageComponent {
 
     } catch (error: any) {
       if(error && error.errors){
-        this.modalController.showDialogError(error.errors[0], ()=>{   });
+      this.route.navigate([`credits/quoter`] );
       }
   }
 }

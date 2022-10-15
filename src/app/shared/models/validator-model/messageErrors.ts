@@ -5,5 +5,6 @@ export const messageErrors = (minLength: string | number, maxLength: string | nu
     validationCui: 'DPI inválido',
     email: 'Campo inválido',
     minlength: minErrorMessage || `El mínimo de caracteres es: ${minLength}`,
-    maxlength: `El máximo de caracteres es: ${maxLength}`
+    maxlength: `El máximo de caracteres es: ${maxLength}`,
+    notThousandMultiple: ' Solo puedes ingresar múltiplos de Q1,000'
 })

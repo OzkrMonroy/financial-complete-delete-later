@@ -15,7 +15,8 @@ import { CustomAbstractControl } from '@/app/shared/models/validator-model/Custo
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent{
+export class InputComponent {
+  errorDisplayed = false;
   @Input() form!: FormGroup;
   @Input() label: string = 'Default label';
   @Input() id: string = 'default-id';
@@ -30,6 +31,7 @@ export class InputComponent{
   @Input() containerClasses: string = '';
   @Input() isInvalidAmount: boolean = false;
   @Input() autoComplete: InputAutoComplete = 'off';
+  @Input() inputInformation!: string
 
   @ViewChild('inputRef') inputElement!: ElementRef;
 
@@ -37,7 +39,9 @@ export class InputComponent{
 
   constructor(private readonly factoryValidator: ValidatorFactoryService) {}
 
-  
+  get isErrorDisplayed(): boolean {
+    return this.errorDisplayed
+  }
 
   validationValue(event: KeyboardEvent): boolean | KeyboardEvent | void{
     const { value } = this.inputElement.nativeElement;
@@ -110,6 +114,9 @@ export class InputComponent{
       return 'error';
     }
     return this.color;
+  }
+  setErrorDisplayed(value: boolean):void {
+    this.errorDisplayed = value
   }
   onPaste(event: ClipboardEvent):void {
     event.preventDefault();

@@ -1,1 +1,27 @@
-<p>quoter-page works!</p>
+<div>
+    <div class="mt-[80px] mb-[20px]">
+      <h1 class="leading-10 text-blue-dark text-2xl text-center font-bold">
+        Cotizar préstamo
+      </h1>
+    </div>
+ 
+    <form [formGroup]="form" class="w-[85%] mx-auto">
+        <app-credit-calculator [formQuoter]="form" (changeIsAmountInvalid)="changeIsValidValue($event)"></app-credit-calculator>
+      <app-button
+        id="quoter-page.solicitar.button"
+        [label]="'Solicitar'"
+        (clickEvent)="requestCredit()"
+        [buttonColor]="ValidButton()"
+        type="submit"
+        class="w-full"></app-button>
+        <div class="flex justify-center">
+            <app-button
+              buttonColor="link"
+              label="Cancelar"
+              class="w-[80px] md:w-[80px] mb-[20px] md:mb-0"
+              (clickEvent)="cancel()"
+              id="quoter-page.cancel.button"></app-button>
+         </div>
+    </form>
+  </div>
+  

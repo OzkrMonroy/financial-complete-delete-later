@@ -26,9 +26,5 @@
       [buttonColor]="ValidButton()"
       type="submit"
       class="w-full mb-5"></app-button>
-      <app-credit-calculator [formQuoter]="form" ></app-credit-calculator>
   </form>
 </div>
-<p>{{ form.value | json }}</p>
-<p>{{ form.valid | json }}</p>
-<p>{{ form.get('amount')?.errors | json }}</p>

@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AmountInputComponent } from '../amount-input/amount-input.component';
 import { InputAlertsComponent } from '../input-alerts/input-alerts.component';
 
 import { InputComponent } from './input.component';
@@ -21,7 +22,7 @@ describe('InputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InputComponent, InputAlertsComponent],
+      declarations: [InputComponent, InputAlertsComponent, AmountInputComponent],
       providers: [ValidatorFactoryService],
       imports: [ReactiveFormsModule, FormsModule],
     }).compileComponents();
@@ -143,4 +144,14 @@ describe('InputComponent', () => {
     expect(preventSpy).toHaveBeenCalledTimes(1)
   })
 
+  it('Should return the errorDisplayed like true', () => {
+    component.setErrorDisplayed(true)
+    const resp = component.isErrorDisplayed
+    expect(resp).toBe(true)
+  })
+  it('Should return the errorDisplayed like false', () => {
+    component.setErrorDisplayed(false)
+    const resp = component.isErrorDisplayed
+    expect(resp).toBe(false)
+  })
 });

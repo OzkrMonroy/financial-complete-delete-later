@@ -6,18 +6,22 @@
   </p>
 
   <app-input
-    containerClasses="mb-[130px]  px-[28px]"
+    containerClasses="mb-[12px]  px-[28px]"
     [form]="formQuoter"
     [required]="true"
     [rule]="'amount'"
     [label]="'Monto'"
     [id]="'quoter-page.amount.input'"
-    [name]="'Amount'"
-    [length]="'6'"></app-input>
+    [name]="'amount'"
+    [length]="'6'"
+    [isInvalidAmount]="isInvalid"
+    
+    inputInformation="Montos de Q6,000 hasta Q30,000"></app-input>
   <app-select-spinner
     containerClasses=" pb-[13px] px-[28px]"
     [id]="'quoter-page.amount.input'"
-    name="Term"
+    name="term"
+    [value]="term"
     (changeEvent)="eventQuoter($event)"
     [domain]="domain"></app-select-spinner>
 

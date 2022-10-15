@@ -8,17 +8,27 @@
   <input
     type="text"
     #myInput
+    [ngClass]="{
+      '-ml-[2px]': getValueLength(myInput) <= 1,
+      'ml-[2px]': getValueLength(myInput) >= 2,
+      '-mr-2': getValueLength(myInput) <= 1,
+      '-mr-[1px]': getValueLength(myInput) === 2,
+      'mr-[1px]': getValueLength(myInput) === 3,
+      '-mr-[3px]': getValueLength(myInput) > 3
+    }"
     [size]="getSize(myInput)"
     placeholder="0"
-    mask="separator.0"
+    mask="separator"
     thousandSeparator=","
     inputmode="numeric"
     (keyup)="keepValueZero($event)"
+    (keydown)="preventSpace($event)"
     [id]="id"
     [name]="name"
     [autocomplete]="autoComplete"
     [formControlName]="name"
     [maxlength]="length" />
+  <span>.00</span>
   <label class="placeholder-text" [for]="name" id="placeholder-fname">
     <div
       class="text flex gap-1 items-center"
@@ -28,6 +38,4 @@
       ><span class="pt-1" *ngIf="required">*</span>
     </div>
   </label>
-  <span>.00</span>
 </div>
-

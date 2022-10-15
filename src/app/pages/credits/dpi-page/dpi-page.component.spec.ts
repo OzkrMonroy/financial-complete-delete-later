@@ -14,17 +14,32 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { prequalifiedDetailsMock } from '@/app/shared/mocks/testing-prequalified';
+import { Router, Routes } from '@angular/router';
+import { PrequalifiedCustomerPageComponent } from '../prequalified-customer-page/prequalified-customer-page.component';
+import { QuoterPageComponent } from '../quoter-page/quoter-page.component';
+import { AmountInputComponent } from '@/app/components/amount-input/amount-input.component';
+
+const routes: Routes = [{
+  path: '',
+  component: DpiPageComponent
+}, {
+  path: 'prequalified-customer',
+  component: PrequalifiedCustomerPageComponent
+}, {
+  path: 'quoter',
+  component: QuoterPageComponent
+}];
 
 describe('DpiPageComponent', () => {
   let component: DpiPageComponent;
   let fixture: ComponentFixture<DpiPageComponent>;
   let service: PrequalifiedCustomerService;
-  let modal: ModalController;
+  let router: Router
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DpiPageComponent, InputComponent, ButtonComponent, InputAlertsComponent ],
-      imports: [ReactiveFormsModule, FormsModule, RouterTestingModule, HttpClientTestingModule],
+      declarations: [ DpiPageComponent, InputComponent, ButtonComponent, InputAlertsComponent, AmountInputComponent ],
+      imports: [ReactiveFormsModule, FormsModule, RouterTestingModule.withRoutes(routes), HttpClientTestingModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
       providers: [PrequalifiedCustomerService, DialogService, MessageService, DynamicDialogRef,DynamicDialogConfig, ModalController]
     })
@@ -36,7 +51,7 @@ describe('DpiPageComponent', () => {
     fixture = TestBed.createComponent(DpiPageComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(PrequalifiedCustomerService);
-    modal = TestBed.inject(ModalController);
+    router = TestBed.inject(Router)
     fixture.detectChanges();
   });
 
@@ -53,13 +68,13 @@ describe('DpiPageComponent', () => {
   
   it('Should displayed an alert when an error occurred', async () => {
     const serviceSpy = spyOn(service, 'verifyCustomer').and.callFake(() => Promise.reject({ errors: [''] }));
-    const modalSpy = spyOn(modal, 'showDialogError')
+    const routerSpy = spyOn(router, 'navigate')
 
     await component.validQueryDPI()
     expect(serviceSpy).toHaveBeenCalled()
     expect(component.customerDetails).toEqual({} as any)
-    expect(modalSpy).toHaveBeenCalledTimes(1)
-    expect(modalSpy).toHaveBeenCalledWith('', jasmine.any(Function))
+    expect(routerSpy).toHaveBeenCalledTimes(1)
+    expect(routerSpy).toHaveBeenCalledWith([`credits/quoter`] )
   })
 
 });

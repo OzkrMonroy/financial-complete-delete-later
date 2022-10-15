@@ -1,8 +1,11 @@
+import { QuoterService } from '@/app/services/credits/quoter/quoter.service';
+import { ModalController } from '@/app/shared/controller/modal-controller';
+import { Quoter } from '@/app/shared/models/quoter';
 import { StringUtils } from '@/app/utils/stringutils/string-utils';
-import { Component, Input, OnInit } from '@angular/core';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AnimationClass } from '../../utils/animationClass';
+import { ValidatorAmountService } from '../../utils/validator/validator-amount/validator-amount-service';
 @Component({
   selector: 'app-credit-calculator',
   templateUrl: './credit-calculator.component.html',
@@ -12,60 +15,79 @@ import { AnimationClass } from '../../utils/animationClass';
 export class CreditCalculatorComponent implements OnInit {
   @Input() formQuoter!: FormGroup;
   @Input() title: string | null= null;
-  
+  @Input() term: number =0;
+  @Input() domain: number[]= [12,18,24];
+  @Input() amount: number=0;
+  @Output() changeIsAmountInvalid: EventEmitter<boolean> = new EventEmitter<boolean>()
   fee: number = 0.00;
-  term: number =0;
-  domain: number[]= [12,18,24];
+  
   isLoading: boolean = false;
   isInvalid: boolean = false;
-  maxLoanAmount: number = 50000;
-  minLoanAmount: number = 2500;
-  constructor( ) {
+  maxLoanAmount: number = 30000;
+  minLoanAmount: number = 6000;
+  
+  constructor(private readonly amountValidator: ValidatorAmountService,
+              private readonly service: QuoterService,
+              private readonly modal: ModalController) {
     this.term = this.domain[0];
-
   }
 
-eventQuoter(term: number){ 
-  this.term= term;
-  this.calculateQuoter();
-}
+  eventQuoter(term: number) {
+    this.term = term;
+    this.calculateQuoter();
+  }
 
 ngOnInit(): void {
   this.createForm();
   this.changeFormValue();
+  if(this.amount>0){
+    this.calculateQuoter();
+  }
 
+  
 }
 
 createForm(): void {
-  this.formQuoter.addControl("Amount",new FormControl('', Validators.required),);
-  this.formQuoter.addControl("Term",new FormControl('', Validators.required),);
-  
+  this.formQuoter.addControl("amount",new FormControl(this.amount, [Validators.required, this.amountValidator.thousandValidation]),);
+ 
 }
 
 changeFormValue(): void {
     
   this.formQuoter
-    .get('Amount')
+    .get('amount')
     ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
-    .subscribe(() => {
-      
-      this.isInvalid = false;
-   
-      if (this.isInvalid ) {
-        AnimationClass(
-          document.getElementById('quoter-page.fee.label') as HTMLElement,
-          'animate-shake'
-        );
-      }
-      if(!this.isInvalid){          
+    .subscribe((amount) => {
+
+      this.isInvalid = !(
+        amount >= this.minLoanAmount && amount <= this.maxLoanAmount
+      );
+      this.changeIsAmountInvalid.emit(this.isInvalid)
+
+      if (!this.isInvalid) {
         this.calculateQuoter();
+      }else {
+        this.fee = 0.00
       }
     });
-}
+  }
 
-  calculateQuoter() {
-   
-    this.fee=this.term*5*+this.formQuoter.get('Amount')?.value;
+ async calculateQuoter() {
+  let amount: number=+this.formQuoter.get('amount')?.value;
+  
+  if(!this.formQuoter.valid || amount <=0) {
+    return;
+  }
+  
+  try {
+      let quoter: Quoter=  await this.service.qouter(this.term, amount);
+      this.fee=quoter.monthlyPayment;
+    }   
+  catch (error: any) {    
+    if(error && error.errors){
+      this.modal.showDialogError("No es posible calcular la cuota en este momento.");
+    }
+}
   }
 
   formatNumber(number: number | string): string {

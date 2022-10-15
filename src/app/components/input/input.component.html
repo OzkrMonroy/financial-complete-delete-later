@@ -55,5 +55,7 @@
     [parentForm]="form"
     [name]="name"
     [rule]="rule"
-    [isInvalidAmount]="isInvalidAmount"></app-input-alerts>
+    [isInvalidAmount]="isInvalidAmount"
+    [inputInformation]="inputInformation"
+    (setErrorDisplayed)="setErrorDisplayed($event)"></app-input-alerts>
 </div>

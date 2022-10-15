@@ -8,28 +8,34 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SelectSpinnerComponent implements OnInit {
   @Input() id: string = 'default-id';
   @Input() domain: number[] = [12, 18, 24];
-  numberSelected: number=0;
+  @Input() value: number =0;
+  
   indexActive=0;
   @Input() containerClasses: string = '';
   @Output() changeEvent: EventEmitter<number> = new EventEmitter();
 
   ngOnInit() {
-    this.indexActive=0;
-    this.numberSelected=this.domain[this.indexActive];
+    this.setInitValue();
+    this.value=this.domain[this.indexActive];
    
+  }
+
+ private setInitValue() {
+    let index: number = this.domain.indexOf(this.value);
+    this.indexActive= (index<=-1)?0: index;
   }
 
 
   clickPlus() {
 
-   this.numberSelected=this.domain[this.nextIndex()];
-   this.changeEvent.emit(this.numberSelected);
+   this.value=this.domain[this.nextIndex()];
+   this.changeEvent.emit(this.value);
   }
 
   clickMinus() {
 
-    this.numberSelected=this.domain[this.nextPrevious()];
-    this.changeEvent.emit(this.numberSelected);
+    this.value=this.domain[this.nextPrevious()];
+    this.changeEvent.emit(this.value);
    }
 
   private nextIndex(): number {

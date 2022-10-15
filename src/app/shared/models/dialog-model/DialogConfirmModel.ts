@@ -4,7 +4,7 @@ export interface DialogConfirmModel {
 
     title: string,
     body?: string,
-    okAction: Function,
+    okAction?: Function,
     cancelAction?: Function,
     icon?: string,
     okText: string,

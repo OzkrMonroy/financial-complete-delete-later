@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ID_ROOT_APP } from './utils/constApp';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front-end-agentes-bancarios';
+  idApp=ID_ROOT_APP;
 }
