@@ -59,11 +59,6 @@ export class InputComponent {
       let answer = validator.validation(control);
       
       if (answer === null) {
-        
-        if (this.rule == 'dpi') {
-          
-          this.dpiFormat();
-        }
         return event;
       } else {
         return false;
@@ -71,35 +66,6 @@ export class InputComponent {
     }
     
     return this.rule === 'inherit' ? event : false;
-  }
-
-  dpiFormat() {
-    const input = this.inputElement.nativeElement;
-    const { selectionStart } = input;
-    const formInputValue = this.form.controls[this.name];
-
-    let trimmedCardNum = formInputValue.value.replace(/\s+/g, '');
-
-    if (trimmedCardNum.length > 15) {
-      trimmedCardNum = trimmedCardNum.substr(0, 15);
-    }
-
-    const partitions = [4, 5, 4];
-
-    const numbers: any[] = [];
-    let position = 0;
-    partitions.forEach((partition) => {
-      const part = trimmedCardNum.substr(position, partition);
-      if (part) numbers.push(part);
-      position += partition;
-    });
-
-    formInputValue.setValue(numbers.join(' '));
-    this.dpiValue = numbers.join(' ');
-
-    if (selectionStart < formInputValue.value.length - 1) {
-      input.setSelectionRange(selectionStart, selectionStart, 'none');
-    }
   }
 
   mustFloat() {

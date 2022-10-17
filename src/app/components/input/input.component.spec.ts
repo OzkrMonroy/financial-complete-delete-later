@@ -1,4 +1,3 @@
-import { ValidatorDPIService } from '@/app/utils/validator/validator-dpi/validator-dpi-service';
 import { ValidatorFactoryService } from '@/app/utils/validator/validator-factory/validator-factory-service';
 import { ValidatorPhoneService } from '@/app/utils/validator/validator-phone/validator-phone-service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -97,15 +96,6 @@ describe('InputComponent', () => {
 
     expect(dpiValidationSpy).toHaveBeenCalledWith();
   });
-  it('Should call the dpiValidationFormat function from the inputValidationService and return true then should call dpiFormat function and return the event', () => {
-    component.rule = 'dpi';
-    const dpiValidation = spyOn(validationsService, 'createValidatorKeyBoardEvent').and.callFake(() => new ValidatorDPIService())
-    const dpiFormatSpy = spyOn(component, 'dpiFormat')
-    const resp = component.validationValue({key: '2263 55292 1108'} as KeyboardEvent);
-    expect(dpiValidation).toHaveBeenCalledTimes(1);
-    expect(dpiFormatSpy).toHaveBeenCalledTimes(1);
-    expect(resp).toEqual({key: '2263 55292 1108'} as KeyboardEvent)
-  });
 
   it('Should call the numberValidation function from the inputValidationService', () => {
     component.rule = 'number';
@@ -129,12 +119,6 @@ describe('InputComponent', () => {
     const resp = component.validationValue(event);
     expect(resp).toEqual(event)
   });
-
-  it('Should cut the text if the dpi is longer than 15', () => {
-    component.form.get('name')?.setValue('1234567890123456');
-    component.dpiFormat()
-    expect(component.form.get('name')?.value).toBe('1234 56789 0123')
-  })
   
   it('Should not paste in the input', () => {
     const event = { preventDefault: () => {} }
